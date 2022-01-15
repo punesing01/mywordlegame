@@ -1,0 +1,8 @@
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row_space {
+    margin: 10px 20px;
+}
