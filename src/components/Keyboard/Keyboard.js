@@ -1,11 +1,11 @@
-import Keyboardkey from "./Keyboardkey";
-import './Keyboard.css'
+import Keyboardkey from "../KeyboardKeys/Keyboardkey";
+import '../Keyboard/Keyboard.css'
 import { useState } from "react";
 import React from "react";
 
 const Keyboard = () => {
 
-    const [keyPressed, setKeyPressed] = useState('hello');
+    const [keyPressed, setKeyPressed] = useState('');
     console.log(keyPressed);
 
     return (
