@@ -13,8 +13,9 @@ function App() {
 
   const storeAnswer = (ans) => {
     if(answer.length <5 && ans!== 'ENT'){
+      console.log('ans=',ans);
       setAnswer([...answer,ans]);
-    } else if(ans === 'ENT'){
+    } else if(ans === 'ENT' && answer.length >=5){
       console.log('Enter is pressed');
       setAnswers([...answers,answer]);
       setAnswer([]);
