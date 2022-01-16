@@ -1,8 +1,10 @@
 import './Cell.css';
 
-const Cell = () => {
+const Cell = props => {
     return(
-        <div className='cell'></div>
+        <div className='cell'>
+            <span className='alphabhet'>{props.value}</span>
+        </div>
     );
 }
 

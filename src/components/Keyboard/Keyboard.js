@@ -1,52 +1,47 @@
 import Keyboardkey from "../KeyboardKeys/Keyboardkey";
 import '../Keyboard/Keyboard.css'
-import { useState } from "react";
 import React from "react";
 
-const Keyboard = () => {
-
-    const [keyPressed, setKeyPressed] = useState('');
-    console.log(keyPressed);
+const Keyboard = (props) => {
 
     return (
         <div>
             <div className='row'>
-                <Keyboardkey name='Q' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='W' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='E' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='R' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='T' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='Y' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='U' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='I' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='O' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='P' onKeyHit={setKeyPressed}/>
+                <Keyboardkey name='Q' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='W' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='E' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='R' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='T' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='Y' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='U' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='I' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='O' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='P' onKeyHit={props.onKeyPressed}/>
             </div>
             <div className='row row_space'>
-                <Keyboardkey name='A' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='S' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='D' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='F' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='G' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='H' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='J' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='K' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='L' onKeyHit={setKeyPressed}/>
+                <Keyboardkey name='A' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='S' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='D' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='F' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='G' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='H' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='J' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='K' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='L' onKeyHit={props.onKeyPressed}/>
             </div>
             <div className='row row_space'>
-                <Keyboardkey name='ENT' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='Z' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='X' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='C' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='V' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='B' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='N' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='M' onKeyHit={setKeyPressed}/>
-                <Keyboardkey name='<=' onKeyHit={setKeyPressed}/>
+                <Keyboardkey name='ENT' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='Z' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='X' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='C' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='V' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='B' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='N' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='M' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey name='<=' onKeyHit={props.onKeyPressed}/>
             </div>
         </div>
     );
 };
-
 
 export default Keyboard;

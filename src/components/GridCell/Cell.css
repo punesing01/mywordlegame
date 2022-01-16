@@ -2,4 +2,12 @@
     border : 2px solid gray;
     width: 60px;
     height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.alphabhet{
+    font-size: xx-large;
+    margin-top: 10px;
 }
