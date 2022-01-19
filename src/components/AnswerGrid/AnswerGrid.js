@@ -6,7 +6,7 @@ const AnswerGrid = props => {
    
     return(
         <div className='answers'>
-            <Row count='0' answer={props.count === 0 ? props.char : props.answers[0]} color={props.count === 1 ?props.rowColor.first:null}/>
+            <Row count='0' answer={props.count === 0 ? props.char : props.answers[0]} color={props.count === 1 ?props.color:props.rowColor}/>
             <Row count='1' answer={props.count === 1 ? props.char : props.answers[1]} color={props.count === 2 ? props.color:props.rowColor}/>
             <Row count='2' answer={props.count === 2 ? props.char : props.answers[2]} color={props.count === 3 ? props.color:props.rowColor}/>
             <Row count='3' answer={props.count === 3 ? props.char : props.answers[3]} color={props.count === 4 ? props.color:props.rowColor}/>

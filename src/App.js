@@ -9,7 +9,7 @@ function App() {
   const [ansCount, setAnsCount]= useState(0);
   const wordToPredict = "PEACE";
   const [cellColor, setCellColor] = useState([]);
-  const [rowColors, setRowColors] = useState([[]]);
+  //const [rowColors, setRowColors] = useState([]);
   const [allRowsColors, setAllRowColors] = useState({
     first:[],
     second:[],
@@ -27,7 +27,7 @@ function App() {
 
   const storeAnswer = (ans) => {
     if(answer.length <5 && ans!== 'ENT'){
-      setCellColor([]);
+      //setCellColor([]);
       console.log('ans=',ans);
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
     } else if(ans === 'ENT' && answer.length >=5){
@@ -63,13 +63,13 @@ function App() {
   };
 
   console.log('cell color=',cellColor);
-  console.log('Row colors=',rowColors);
+  console.log('Row colors=',allRowsColors);
 
 
   /*useEffect(()=> {
-    let colors = [...cellColor];
+    //let colors = [...cellColor];
     //setRowColors(prevColors=> [...prevColors,...colors]);
-    setRowColors(prevColors=> [...colors]);
+    setRowColors(prevColors=>[...prevColors,cellColor]);
   },[cellColor]);*/
 
   /*useEffect(()=> {
@@ -78,48 +78,63 @@ function App() {
   },[rowColors]);*/
 
   useEffect(()=> {
+    console.log('before switch=',allRowsColors);
     switch(ansCount){
       case 1:  console.log('Answer1');
-              setAllRowColors(prevState => {
+              /*setAllRowColors(prevState => {
                 console.log('here prev state=',prevState);
-                return {...allRowsColors,
+                return {...rowColors,
                   first:cellColor};
+              });*/
+              setAllRowColors({
+                ...allRowsColors,
+                first:cellColor
               });
               break;
       case 2:  console.log('Answer2');
-              const secondRow = {
-                ...allRowsColors,
-                second:cellColor
-              }
-              setAllRowColors(secondRow);
+        
+      /*setAllRowColors(prevState => {
+        console.log('here prev state=',prevState);
+        return {...rowColors,
+          second:cellColor};
+      });*/
+      setAllRowColors({
+        ...allRowsColors,
+        second:cellColor
+      });
               break;
       case 3: console.log('Answer3');
-              setAllRowColors(prevState => {
-                return {...allRowsColors,
+             /* setAllRowColors(prevState => {
+                return {...rowColors,
                         third:cellColor};
+                      });*/
+                      setAllRowColors({
+                        ...allRowsColors,
+                        third:cellColor
                       });
               break;
       case 4:  console.log('Answer4');
-              setAllRowColors(prevState => {
-                return {...prevState,
-                forth:cellColor};
-              });
+      setAllRowColors({
+        ...allRowsColors,
+        forth:cellColor
+      });
               break;
       case 5:  console.log('Answer5');
-              setAllRowColors(prevState => {
-                return {...prevState,
-                fifth:cellColor};
-              });
+      setAllRowColors({
+        ...allRowsColors,
+        fifth:cellColor
+      });
               break;
       case 6:  console.log('Answer6');
-              setAllRowColors(prevState => {
-                return {...prevState,
-                sixth:cellColor};
-              });
+      setAllRowColors({
+        ...allRowsColors,
+        sixth:cellColor
+      });
               break;
       default:break;
     }
-  },[ansCount,cellColor]);
+  },[cellColor]);
+
   console.log('all Row colors=',allRowsColors);
 
   return (
