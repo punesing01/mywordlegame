@@ -8,18 +8,34 @@ function App() {
   const [answer, setAnswer] = useState([]);
   const [ansCount, setAnsCount]= useState(0);
   const wordToPredict = "PEACE";
-  const [cellColor, setCellColor] = useState([]);
-  //const [rowColors, setRowColors] = useState([]);
-  const [allRowsColors, setAllRowColors] = useState({
-    first:[],
-    second:[],
-    third:[],
-    forth:[],
-    fifth:[],
-    sixth:[]
-  });
+  const [cellColor, setCellColor] = useState([]);;
 
-  //const [allRowColors, setAllRowColors] = useState([]);
+  const [guessWord,setGuessWord] = useState({
+    first: {
+      rowColors: [],
+      rowLetters: []
+    },
+    second: {
+      rowColors: [],
+      rowLetters: []
+    },
+    third: {
+      rowColors: [],
+      rowLetters: []
+    },
+    forth: {
+      rowColors: [],
+      rowLetters: []
+    },
+    fifth: {
+      rowColors: [],
+      rowLetters: []
+    },
+    sixth: {
+      rowColors: [],
+      rowLetters: []
+    }
+  });
 
   console.log('answer=',answer);
   console.log('answers=',answers);
@@ -27,7 +43,6 @@ function App() {
 
   const storeAnswer = (ans) => {
     if(answer.length <5 && ans!== 'ENT'){
-      //setCellColor([]);
       console.log('ans=',ans);
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
     } else if(ans === 'ENT' && answer.length >=5){
@@ -57,85 +72,24 @@ function App() {
             setCellColor(oldColors=> [...oldColors,'black']);
         }
       }
-      //setAllRowColors(prevState=> [...prevState,...rowColors]);
       setAnswer([]);
     }
   };
 
   console.log('cell color=',cellColor);
-  console.log('Row colors=',allRowsColors);
-
-
-  /*useEffect(()=> {
-    //let colors = [...cellColor];
-    //setRowColors(prevColors=> [...prevColors,...colors]);
-    setRowColors(prevColors=>[...prevColors,cellColor]);
-  },[cellColor]);*/
-
-  /*useEffect(()=> {
-    let colors = [...rowColors];
-    setAllRowColors(prevColors=> [...prevColors,[...colors]]);
-  },[rowColors]);*/
+  console.log('My guess word=',guessWord);
 
   useEffect(()=> {
-    console.log('before switch=',allRowsColors);
-    switch(ansCount){
-      case 1:  console.log('Answer1');
-              /*setAllRowColors(prevState => {
-                console.log('here prev state=',prevState);
-                return {...rowColors,
-                  first:cellColor};
-              });*/
-              setAllRowColors({
-                ...allRowsColors,
-                first:cellColor
-              });
-              break;
-      case 2:  console.log('Answer2');
-        
-      /*setAllRowColors(prevState => {
-        console.log('here prev state=',prevState);
-        return {...rowColors,
-          second:cellColor};
-      });*/
-      setAllRowColors({
-        ...allRowsColors,
-        second:cellColor
-      });
-              break;
-      case 3: console.log('Answer3');
-             /* setAllRowColors(prevState => {
-                return {...rowColors,
-                        third:cellColor};
-                      });*/
-                      setAllRowColors({
-                        ...allRowsColors,
-                        third:cellColor
-                      });
-              break;
-      case 4:  console.log('Answer4');
-      setAllRowColors({
-        ...allRowsColors,
-        forth:cellColor
-      });
-              break;
-      case 5:  console.log('Answer5');
-      setAllRowColors({
-        ...allRowsColors,
-        fifth:cellColor
-      });
-              break;
-      case 6:  console.log('Answer6');
-      setAllRowColors({
-        ...allRowsColors,
-        sixth:cellColor
-      });
-              break;
-      default:break;
+    switch ((ansCount)) {
+      case 1: setGuessWord({...guessWord, first : {rowColors: cellColor.slice(0,5),rowLetters: answers[0]}}); break;
+      case 2: setGuessWord({...guessWord, second : {rowColors: cellColor.slice(5,10),rowLetters: answers[1]}}); break;
+      case 3: setGuessWord({...guessWord, third : {rowColors: cellColor.slice(10,15),rowLetters: answers[2]}}); break;
+      case 4: setGuessWord({...guessWord, forth : {rowColors: cellColor.slice(15,20),rowLetters: answers[3]}}); break;
+      case 5: setGuessWord({...guessWord, fifth : {rowColors: cellColor.slice(20,25),rowLetters: answers[4]}}); break;
+      case 6: setGuessWord({...guessWord, sixth : {rowColors: cellColor.slice(25,30),rowLetters: answers[5]}}); break;
+      default: break;
     }
   },[cellColor]);
-
-  console.log('all Row colors=',allRowsColors);
 
   return (
     <div className='app_style'>
@@ -145,7 +99,7 @@ function App() {
         char={answer} 
         count={ansCount} 
         color={cellColor} 
-        rowColor={allRowsColors}
+        guesses={guessWord}
       />
       <Keyboard onKeyPressed={storeAnswer}/>
     </div>
