@@ -7,8 +7,9 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [answer, setAnswer] = useState([]);
   const [ansCount, setAnsCount]= useState(0);
-  const wordToPredict = "PEACE";
   const [cellColor, setCellColor] = useState([]);;
+  const[wordToPredict, setWordToPredict] = useState('');
+  const guessLetters = "abcdefghijklmnopqrstuvwxyz";
 
   const [guessWord,setGuessWord] = useState({
     first: {
@@ -42,12 +43,14 @@ function App() {
   console.log('ans count=',ansCount);
 
   const fetchANewWord= async()=>{
-    return fetch(`http://localhost:3000/myWordle`)
+    const random = Math.floor(Math.random() * 26) + 1;
+    const startingLetter = guessLetters.charAt(random-1);
+    return fetch(`https://api.datamuse.com/words?sp=${startingLetter}????&max=1`)
       .then(res=> {
-          if(!res.ok) throw new Error("Network response was not ok.")
           res.json().then(data=>{
               console.log('data=',data[0].word);
-          })})
+              setWordToPredict(data[0].word.toUpperCase());
+        })})
       .catch(err=> console.log(err));
   }
 
