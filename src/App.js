@@ -41,6 +41,20 @@ function App() {
   console.log('answers=',answers);
   console.log('ans count=',ansCount);
 
+  const fetchANewWord= async()=>{
+    return fetch(`http://localhost:3000/myWordle`)
+      .then(res=> {
+          if(!res.ok) throw new Error("Network response was not ok.")
+          res.json().then(data=>{
+              console.log('data=',data[0].word);
+          })})
+      .catch(err=> console.log(err));
+  }
+
+  useEffect(()=> {
+    fetchANewWord();
+  },[]);
+
   const storeAnswer = (ans) => {
     if(answer.length <5 && ans!== 'ENT'){
       console.log('ans=',ans);
