@@ -180,7 +180,7 @@ function App() {
       }      
     } else if(ansCount === 5 && answer.join('') !== wordToPredict){
        setGameOver(true);
-       finalTitle = 'Game Over!!'
+       finalTitle = wordToPredict
     }
       setFinalResult(finalTitle);
     }
