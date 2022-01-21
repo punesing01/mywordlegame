@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Cell from "../GridCell/Cell";
 import './Row.css';
 

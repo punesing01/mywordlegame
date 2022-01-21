@@ -6,6 +6,11 @@
     justify-content: center;
 }
 
+.cell_expand{
+    width: 56px;
+    height: 56px;
+    border: 4px solid black;
+}
 
 .alphabhet{
     font-size: xx-large;

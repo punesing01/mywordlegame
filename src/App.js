@@ -2,6 +2,7 @@ import './App.css';
 import Keyboard from './components/Keyboard/Keyboard';
 import React, { useEffect, useState } from "react";
 import AnswerGrid from './components/AnswerGrid/AnswerGrid';
+import Banner from './components/ResultBanner/Banner';
 
 function App() {
   const [answers, setAnswers] = useState([]);
@@ -10,6 +11,7 @@ function App() {
   const [cellColor, setCellColor] = useState([]);;
   const[wordToPredict, setWordToPredict] = useState('');
   const guessLetters = "abcdefghijklmnopqrstuvwxyz";
+  const [finalResult, setFinalResult] = useState('');
 
   const [guessWord,setGuessWord] = useState({
     first: {
@@ -88,6 +90,21 @@ function App() {
         } else {
             setCellColor(oldColors=> [...oldColors,'black']);
         }
+        if(answer.join('') === wordToPredict){
+          console.log(`You have won the game in ${ansCount} guesses`);
+          let finalTitle = '';
+          switch(ansCount){
+            case 0:
+            case 1 : finalTitle = 'Excellent!!';break;
+            case 2 : finalTitle = 'Super!!';break;
+            case 3 : finalTitle = 'Great!!';break;
+            case 4 : finalTitle = 'Nice!!';break;
+            case 5 : finalTitle = 'Phew!!';break;
+            default:break;
+          }
+          setFinalResult(finalTitle);
+          break;
+        }
       }
       setAnswer([]);
     }
@@ -98,12 +115,12 @@ function App() {
 
   useEffect(()=> {
     switch ((ansCount)) {
-      case 1: setGuessWord({...guessWord, first : {rowColors: cellColor.slice(0,5),rowLetters: answers[0]}}); break;
-      case 2: setGuessWord({...guessWord, second : {rowColors: cellColor.slice(5,10),rowLetters: answers[1]}}); break;
-      case 3: setGuessWord({...guessWord, third : {rowColors: cellColor.slice(10,15),rowLetters: answers[2]}}); break;
-      case 4: setGuessWord({...guessWord, forth : {rowColors: cellColor.slice(15,20),rowLetters: answers[3]}}); break;
-      case 5: setGuessWord({...guessWord, fifth : {rowColors: cellColor.slice(20,25),rowLetters: answers[4]}}); break;
-      case 6: setGuessWord({...guessWord, sixth : {rowColors: cellColor.slice(25,30),rowLetters: answers[5]}}); break;
+      case 1: setGuessWord({...guessWord, first : {rowColors: cellColor.slice(0,5),rowLetters: answers[0], done:true}}); break;
+      case 2: setGuessWord({...guessWord, second : {rowColors: cellColor.slice(5,10),rowLetters: answers[1],done:true}}); break;
+      case 3: setGuessWord({...guessWord, third : {rowColors: cellColor.slice(10,15),rowLetters: answers[2],done:true}}); break;
+      case 4: setGuessWord({...guessWord, forth : {rowColors: cellColor.slice(15,20),rowLetters: answers[3],done:true}}); break;
+      case 5: setGuessWord({...guessWord, fifth : {rowColors: cellColor.slice(20,25),rowLetters: answers[4],done:true}}); break;
+      case 6: setGuessWord({...guessWord, sixth : {rowColors: cellColor.slice(25,30),rowLetters: answers[5],done:true}}); break;
       default: break;
     }
   },[cellColor]);
@@ -111,6 +128,7 @@ function App() {
   return (
     <div className='app_style'>
       <h1>MY WORDLE</h1>
+      <Banner title={finalResult}/>
       <AnswerGrid 
         answers={answers} 
         char={answer} 

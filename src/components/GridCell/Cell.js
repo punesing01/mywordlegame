@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import './Cell.css';
 
-const Cell = props => {
-    
+const Cell = props => {    
+
+    const cellStyle = props.value ? 'cell cell_expand' : 'cell';
     return(
-        <div className='cell' style={{backgroundColor:props.color}}>
+        <div className={cellStyle} style={{backgroundColor:props.color}}>
             <span className='alphabhet'>{props.value}</span>
         </div>
     );

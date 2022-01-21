@@ -1,0 +1,11 @@
+.final_result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.text {
+    color: green;
+    font-size: 30px;
+}
