@@ -9,9 +9,10 @@ function App() {
   const [answer, setAnswer] = useState([]);
   const [ansCount, setAnsCount]= useState(0);
   const [cellColor, setCellColor] = useState([]);;
-  const[wordToPredict, setWordToPredict] = useState('');
+  const [wordToPredict, setWordToPredict] = useState('');
   const guessLetters = "abcdefghijklmnopqrstuvwxyz";
   const [finalResult, setFinalResult] = useState('');
+  const [gameOver, setGameOver] = useState(false);
 
   const [guessWord,setGuessWord] = useState({
     first: {
@@ -61,7 +62,7 @@ function App() {
   },[]);
 
   const storeAnswer = (ans) => {
-    if(answer.length <5 && ans!== 'ENT'){
+    if(answer.length <5 && ans!== 'ENT' && !gameOver ){
       console.log('ans=',ans);
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
     } else if(ans === 'ENT' && answer.length >=5){
@@ -90,22 +91,8 @@ function App() {
         } else {
             setCellColor(oldColors=> [...oldColors,'black']);
         }
-        if(answer.join('') === wordToPredict){
-          console.log(`You have won the game in ${ansCount} guesses`);
-          let finalTitle = '';
-          switch(ansCount){
-            case 0:
-            case 1 : finalTitle = 'Excellent!!';break;
-            case 2 : finalTitle = 'Super!!';break;
-            case 3 : finalTitle = 'Great!!';break;
-            case 4 : finalTitle = 'Nice!!';break;
-            case 5 : finalTitle = 'Phew!!';break;
-            default:break;
-          }
-          setFinalResult(finalTitle);
-          break;
-        }
       }
+      checkForGameOver();
       setAnswer([]);
     }
   };
@@ -124,6 +111,24 @@ function App() {
       default: break;
     }
   },[cellColor]);
+
+  const checkForGameOver = ()=>{
+    if(answer.join('') === wordToPredict){
+      setGameOver(true);
+      console.log(`You have won the game in ${ansCount} guesses`);
+      let finalTitle = '';
+      switch(ansCount){
+        case 0:
+        case 1 : finalTitle = 'Excellent!!';break;
+        case 2 : finalTitle = 'Super!!';break;
+        case 3 : finalTitle = 'Great!!';break;
+        case 4 : finalTitle = 'Nice!!';break;
+        case 5 : finalTitle = 'Phew!!';break;
+        default:break;
+      }
+      setFinalResult(finalTitle);
+    }
+  }
 
   return (
     <div className='app_style'>
