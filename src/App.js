@@ -8,11 +8,13 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [answer, setAnswer] = useState([]);
   const [ansCount, setAnsCount]= useState(0);
-  const [cellColor, setCellColor] = useState([]);;
+  const [rowColor, setRowColor] = useState([]);;
   const [wordToPredict, setWordToPredict] = useState('');
   const guessLetters = "abcdefghijklmnopqrstuvwxyz";
   const [finalResult, setFinalResult] = useState('');
   const [gameOver, setGameOver] = useState(false);
+  const [keyBoardKey, setKeyBoardKey] = useState([{color:'',name:''}]);
+  const [keyCount, setKeyCount] = useState(0);
 
   const [guessWord,setGuessWord] = useState({
     first: {
@@ -64,9 +66,54 @@ function App() {
   const storeAnswer = (ans) => {
     if(answer.length <5 && ans!== 'ENT' && !gameOver ){
       console.log('ans=',ans);
+      setKeyCount(prev=> prev+1);
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
+
+      let keyPos = wordToPredict.indexOf(ans);
+      console.log('Search for key=',ans);
+      console.log('key pos=',keyPos);
+      switch(true){
+        case keyPos === -1: 
+        keyBoardKey.forEach(
+          k => {
+            if(k.name !== ans && k.name!== null){
+              console.log(`checking : ${k.name}: ans`);
+              setKeyBoardKey([...keyBoardKey,
+                {color:'#787c7e',
+                name:ans}]);
+            }
+          }
+        )
+        break;
+        case keyPos === keyCount: 
+        keyBoardKey.forEach(
+          k =>{
+            if(k.name !== ans && k.name!== null){
+              console.log(`checking : ${k.name}: ans`);
+
+              setKeyBoardKey([...keyBoardKey,
+                {color:'#6aaa64',
+                name:ans}]);
+            }
+          })
+        break;
+        case keyPos < 5: 
+        keyBoardKey.forEach(
+          k =>{
+            if(k.name !== ans && k.name!== null){
+              console.log(`checking : ${k.name}: ans`);
+
+              setKeyBoardKey([...keyBoardKey,
+                {color:'#c9b458',
+                name:ans}]);
+            }
+          })                                 
+        break;
+        default:break;
+      }
     } else if(ans === 'ENT' && answer.length >=5){
       console.log('Enter is pressed');
+      setKeyCount(0);
       setAnswers(oldAnswers=> [...oldAnswers,answer]);
       setAnsCount(prev=> prev+1);
       let pos=0;
@@ -85,32 +132,37 @@ function App() {
         }
 
         if(pos === i){
-            setCellColor(oldColors=> [...oldColors,'green']);
+          //green
+            setRowColor(oldColors=> [...oldColors,'#6aaa64']);
         } else if(pos !== i && pos !== -1){
-            setCellColor(oldColors=> [...oldColors,'yellow']);
+          //yellow
+            setRowColor(oldColors=> [...oldColors,'#c9b458']);
         } else {
-            setCellColor(oldColors=> [...oldColors,'black']);
+          //gray
+            setRowColor(oldColors=> [...oldColors,'#787c7e']);
         }
       }
       checkForGameOver();
       setAnswer([]);
     }
   };
+  console.log('key color=',keyBoardKey.keys);
+  console.log('Object.keys(keyBoardKey)=',keyBoardKey);
 
-  console.log('cell color=',cellColor);
+  console.log('cell color=',rowColor);
   console.log('My guess word=',guessWord);
 
   useEffect(()=> {
     switch ((ansCount)) {
-      case 1: setGuessWord({...guessWord, first : {rowColors: cellColor.slice(0,5),rowLetters: answers[0], done:true}}); break;
-      case 2: setGuessWord({...guessWord, second : {rowColors: cellColor.slice(5,10),rowLetters: answers[1],done:true}}); break;
-      case 3: setGuessWord({...guessWord, third : {rowColors: cellColor.slice(10,15),rowLetters: answers[2],done:true}}); break;
-      case 4: setGuessWord({...guessWord, forth : {rowColors: cellColor.slice(15,20),rowLetters: answers[3],done:true}}); break;
-      case 5: setGuessWord({...guessWord, fifth : {rowColors: cellColor.slice(20,25),rowLetters: answers[4],done:true}}); break;
-      case 6: setGuessWord({...guessWord, sixth : {rowColors: cellColor.slice(25,30),rowLetters: answers[5],done:true}}); break;
+      case 1: setGuessWord({...guessWord, first : {rowColors: rowColor.slice(0,5),rowLetters: answers[0], done:true}}); break;
+      case 2: setGuessWord({...guessWord, second : {rowColors: rowColor.slice(5,10),rowLetters: answers[1],done:true}}); break;
+      case 3: setGuessWord({...guessWord, third : {rowColors: rowColor.slice(10,15),rowLetters: answers[2],done:true}}); break;
+      case 4: setGuessWord({...guessWord, forth : {rowColors: rowColor.slice(15,20),rowLetters: answers[3],done:true}}); break;
+      case 5: setGuessWord({...guessWord, fifth : {rowColors: rowColor.slice(20,25),rowLetters: answers[4],done:true}}); break;
+      case 6: setGuessWord({...guessWord, sixth : {rowColors: rowColor.slice(25,30),rowLetters: answers[5],done:true}}); break;
       default: break;
     }
-  },[cellColor]);
+  },[rowColor]);
 
   const checkForGameOver = ()=>{
     let finalTitle = '';
@@ -141,10 +193,14 @@ function App() {
         answers={answers} 
         char={answer} 
         count={ansCount} 
-        color={cellColor} 
+        color={rowColor} 
         guesses={guessWord}
       />
-      <Keyboard onKeyPressed={storeAnswer}/>
+      <Keyboard 
+          onKeyPressed={storeAnswer} 
+          keyBoardKey={keyBoardKey} 
+          count={ansCount}
+      />
     </div>
   );
 }

@@ -1,47 +1,70 @@
 import Keyboardkey from "../KeyboardKeys/Keyboardkey";
 import '../Keyboard/Keyboard.css'
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 const Keyboard = (props) => {
-
+    const firstRow = 'QWERTYUIOP';
+    const secondRow = 'ASDFGHJKL';
+    const thirdRow = 'ZXCVBNM';
+    console.log('keyboard keys=',props.keyBoardKey);
+    
     return (
         <div>
             <div className='row'>
-                <Keyboardkey name='Q' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='W' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='E' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='R' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='T' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='Y' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='U' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='I' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='O' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='P' onKeyHit={props.onKeyPressed}/>
+                {
+                    [...firstRow].map(key => {
+                        return ( <Keyboardkey 
+                                    key={key} 
+                                    name={key} 
+                                    keyBoardKey={props.keyBoardKey}
+                                    onKeyHit={props.onKeyPressed}
+                                    count={props.count}
+                                />)
+                    })
+                }
             </div>
             <div className='row row_space'>
-                <Keyboardkey name='A' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='S' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='D' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='F' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='G' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='H' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='J' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='K' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='L' onKeyHit={props.onKeyPressed}/>
+            {
+                    [...secondRow].map(key => {
+                        return ( <Keyboardkey 
+                                    key={key} 
+                                    name={key} 
+                                    keyBoardKey={props.keyBoardKey}
+                                    onKeyHit={props.onKeyPressed}
+                                    count={props.count}
+                                />)
+                    })
+                }
             </div>
             <div className='row row_space'>
-                <Keyboardkey name='ENT' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='Z' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='X' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='C' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='V' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='B' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='N' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='M' onKeyHit={props.onKeyPressed}/>
-                <Keyboardkey name='<=' onKeyHit={props.onKeyPressed}/>
+                <Keyboardkey 
+                key='ENT'
+                name='ENT' 
+                keyBoardKey={props.keyBoardKey}
+                onKeyHit={props.onKeyPressed}
+                count={props.count}
+                />
+                {
+                    [...thirdRow].map(key => {
+                        return ( <Keyboardkey 
+                                    key={key} 
+                                    name={key} 
+                                    keyBoardKey={props.keyBoardKey}
+                                    onKeyHit={props.onKeyPressed}
+                                    count={props.count}
+                                />)
+                    })
+                }
+                <Keyboardkey 
+                    key='<='
+                    name='<=' 
+                    keyBoardKey={props.keyBoardKey}
+                    onKeyHit={props.onKeyPressed}
+                    count={props.count}
+                />
             </div>
         </div>
     );
-};
+}
 
 export default Keyboard;
