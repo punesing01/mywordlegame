@@ -3,7 +3,7 @@ import './Banner.css';
 const Banner = (props) => {
     return (
         <div className='final_result'>
-            <span className='text'>{props.title}</span>
+            <span className='text blink_me'>{props.title}</span>
         </div>
     );
 };

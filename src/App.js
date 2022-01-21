@@ -113,10 +113,10 @@ function App() {
   },[cellColor]);
 
   const checkForGameOver = ()=>{
+    let finalTitle = '';
     if(answer.join('') === wordToPredict){
       setGameOver(true);
       console.log(`You have won the game in ${ansCount} guesses`);
-      let finalTitle = '';
       switch(ansCount){
         case 0:
         case 1 : finalTitle = 'Excellent!!';break;
@@ -125,10 +125,13 @@ function App() {
         case 4 : finalTitle = 'Nice!!';break;
         case 5 : finalTitle = 'Phew!!';break;
         default:break;
-      }
+      }      
+    } else if(ansCount === 5 && answer.join('') !== wordToPredict){
+       setGameOver(true);
+       finalTitle = 'Game Over!!'
+    }
       setFinalResult(finalTitle);
     }
-  }
 
   return (
     <div className='app_style'>
