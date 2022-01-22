@@ -53,7 +53,7 @@ function App() {
     return fetch(`https://api.datamuse.com/words?sp=${startingLetter}????&max=1`)
       .then(res=> {
           res.json().then(data=>{
-              console.log('data=',data[0].word);
+              //console.log('data=',data[0].word);
               setWordToPredict(data[0].word.toUpperCase());
         })})
       .catch(err=> console.log(err));
@@ -69,6 +69,9 @@ function App() {
       setKeyCount(prev=> prev+1);
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
 
+      if(ans === '<='){
+        removeLetters();
+      } else {
       let keyPos = wordToPredict.indexOf(ans);
       console.log('Search for key=',ans);
       console.log('key pos=',keyPos);
@@ -110,7 +113,7 @@ function App() {
           })                                 
         break;
         default:break;
-      }
+      }}
     } else if(ans === 'ENT' && answer.length >=5){
       console.log('Enter is pressed');
       setKeyCount(0);
@@ -144,8 +147,17 @@ function App() {
       }
       checkForGameOver();
       setAnswer([]);
+    } else if(ans === '<=' && answer.length >=5){
+      removeLetters();
     }
   };
+
+  const removeLetters = () => {
+    let lastLetter = answer[answer.length-1];
+    let updatedAns = answer.filter(element => element!== lastLetter);
+    setAnswer(oldAnswer => [...updatedAns]);
+  }
+
   console.log('key color=',keyBoardKey.keys);
   console.log('Object.keys(keyBoardKey)=',keyBoardKey);
 

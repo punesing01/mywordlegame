@@ -17,6 +17,7 @@ const Keyboardkey = (props) => {
             })
         }
     },[props.count]);
+    
     return(
         <div className="key" 
             id={props.name} 
