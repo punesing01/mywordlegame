@@ -204,7 +204,7 @@ function App() {
 
   return (
     <div className='app_style'>
-      <h1>MY WORDLE</h1>
+      <h1>WORD YARN</h1>
       <Banner title={finalResult}/>
       <AnswerGrid 
         answers={answers} 
