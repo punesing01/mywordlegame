@@ -1,6 +1,5 @@
 import Keyboardkey from "../KeyboardKeys/Keyboardkey";
 import '../Keyboard/Keyboard.css'
-import React, {useEffect, useState} from "react";
 
 const Keyboard = (props) => {
     const firstRow = 'QWERTYUIOP';
@@ -9,7 +8,7 @@ const Keyboard = (props) => {
     console.log('keyboard keys=',props.keyBoardKey);
     
     return (
-        <div>
+        <div className='keyboard'>
             <div className='row'>
                 {
                     [...firstRow].map(key => {
@@ -36,7 +35,7 @@ const Keyboard = (props) => {
                     })
                 }
             </div>
-            <div className='row row_space'>
+            <div className='row'>
                 <Keyboardkey 
                 key='ENT'
                 name='ENT' 

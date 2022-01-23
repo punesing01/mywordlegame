@@ -153,9 +153,14 @@ function App() {
   };
 
   const removeLetters = () => {
-    let lastLetter = answer[answer.length-1];
-    let updatedAns = answer.filter(element => element!== lastLetter);
-    setAnswer(oldAnswer => [...updatedAns]);
+    console.log('answer[answer.length-1]=',answer[answer.length-1]);
+    let keyBoardKeyIndex = keyBoardKey.findIndex(elem => elem.name === answer[answer.length-1]);
+    console.log('keyBoardKeyIndex=',keyBoardKeyIndex);
+    keyBoardKey.splice(keyBoardKeyIndex,1);
+    setKeyBoardKey([...keyBoardKey]);
+    let ansCopy = [...answer];
+    ansCopy.pop();
+    setAnswer([...ansCopy]);
   }
 
   console.log('key color=',keyBoardKey.keys);
