@@ -4,7 +4,7 @@ import '../Keyboard/Keyboard.css'
 const Keyboard = (props) => {
     const firstRow = 'QWERTYUIOP';
     const secondRow = 'ASDFGHJKL';
-    const thirdRow = 'ZXCVBNM';
+    const thirdRow = 'ZXCVBNM-';
     console.log('keyboard keys=',props.keyBoardKey);
     
     return (
