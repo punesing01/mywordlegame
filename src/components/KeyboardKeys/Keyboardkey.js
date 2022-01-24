@@ -20,7 +20,7 @@ const Keyboardkey = (props) => {
             id={props.name} 
             style={{backgroundColor:color}}
             onClick= {()=> {props.onKeyHit(props.name)}}>
-            <span className="letter">{props.name}</span>
+            <span className="letter small_key__size">{props.name}</span>
         </div>
     );
 }

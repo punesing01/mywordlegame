@@ -12,3 +12,15 @@
 .row_space {
     margin: 10px 20px;
 }
+
+@media (max-width:600px){
+.row{
+    gap: 6px;
+}
+.last_row__margin{
+    margin-bottom: 20px;
+}
+}
+
+
+

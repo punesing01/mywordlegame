@@ -35,7 +35,7 @@ const Keyboard = (props) => {
                     })
                 }
             </div>
-            <div className='row'>
+            <div className='row last_row__margin'>
                 <Keyboardkey 
                 key='ENT'
                 name='ENT' 

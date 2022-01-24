@@ -12,3 +12,15 @@
 .letter {
     font-size: x-large;
 }
+
+@media (max-width:600px){
+    .key{
+        border: 0;
+        width: 30px;
+        height: 50px;
+    }
+    .small_key__size{
+        font-size:14px;
+    }
+}
+    
