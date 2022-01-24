@@ -6,10 +6,7 @@ const Keyboardkey = (props) => {
 
     useEffect(()=> {
         if(props.keyBoardKey){
-            props.keyBoardKey.forEach(boardKey=> {
-                console.log('here');
-                console.log('boardKey=',boardKey);
-    
+            props.keyBoardKey.forEach(boardKey=> {    
                 if(boardKey.name === props.name){
                     console.log('boardKey.color=',boardKey.color);
                     setColor(boardKey.color);

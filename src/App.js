@@ -64,17 +64,33 @@ function App() {
   },[]);
 
   const storeAnswer = (ans) => {
+    if(ans === '<='){
+      removeLetters();
+      setKeyCount(prev => prev-1);
+    } else
     if(answer.length <5 && ans!== 'ENT' && !gameOver ){
       console.log('ans=',ans);
-      setKeyCount(prev=> prev+1);
+      setKeyCount(prev=> {
+        console.log('setting key count from=',keyCount);
+        return keyCount+1});
       setAnswer(oldAnswer=> [...oldAnswer,ans]);
 
-      if(ans === '<='){
-        removeLetters();
-      } else {
       let keyPos = wordToPredict.indexOf(ans);
+      //let pos = wordToPredict.indexOf(ans);
+
+      if(keyPos !== -1 && keyPos!== keyCount){
+        console.log('Inside');
+        keyPos= wordToPredict.indexOf(ans,keyCount);
+        if(keyPos === -1) {
+          keyPos= wordToPredict.indexOf(ans,-keyCount);
+        }
+      }
+      //let keyPos=checkForKeyPosition(wordToPredict.indexOf(ans),keyCount);
+
       console.log('Search for key=',ans);
       console.log('key pos=',keyPos);
+      console.log('key count=',keyCount);
+    
       switch(true){
         case keyPos === -1: 
         keyBoardKey.forEach(
@@ -100,7 +116,9 @@ function App() {
             }
           })
         break;
-        case keyPos < 5: 
+        case keyPos < 5:
+        //case keyPos !== keyCount :
+        //case keyPos !== keyCount && keyPos !== -1:
         keyBoardKey.forEach(
           k =>{
             if(k.name !== ans && k.name!== null){
@@ -113,17 +131,16 @@ function App() {
           })                                 
         break;
         default:break;
-      }}
+      }
     } else if(ans === 'ENT' && answer.length >=5){
       console.log('Enter is pressed');
       setKeyCount(0);
       setAnswers(oldAnswers=> [...oldAnswers,answer]);
       setAnsCount(prev=> prev+1);
       let pos=0;
-      for(let i=0;i<answer.length;i++){
+      for(let i=0;i<=answer.length-1;i++){
         pos = wordToPredict.indexOf(answer[i]);
         console.log('Search for=',answer[i]);
-        console.log('pos=',pos);
         console.log('i=',i);
 
         if(pos !== -1 && pos!== i){
@@ -144,6 +161,7 @@ function App() {
           //gray
             setRowColor(oldColors=> [...oldColors,'#787c7e']);
         }
+        console.log('pos=',pos);
       }
       checkForGameOver();
       setAnswer([]);
@@ -153,9 +171,9 @@ function App() {
   };
 
   const removeLetters = () => {
-    console.log('answer[answer.length-1]=',answer[answer.length-1]);
+    //console.log('answer[answer.length-1]=',answer[answer.length-1]);
     let keyBoardKeyIndex = keyBoardKey.findIndex(elem => elem.name === answer[answer.length-1]);
-    console.log('keyBoardKeyIndex=',keyBoardKeyIndex);
+    //console.log('keyBoardKeyIndex=',keyBoardKeyIndex);
     keyBoardKey.splice(keyBoardKeyIndex,1);
     setKeyBoardKey([...keyBoardKey]);
     let ansCopy = [...answer];
@@ -164,9 +182,7 @@ function App() {
   }
 
   console.log('key color=',keyBoardKey.keys);
-  console.log('Object.keys(keyBoardKey)=',keyBoardKey);
-
-  console.log('cell color=',rowColor);
+  /*console.log('cell color=',rowColor);*/
   console.log('My guess word=',guessWord);
 
   useEffect(()=> {
@@ -201,6 +217,19 @@ function App() {
     }
       setFinalResult(finalTitle);
     }
+
+    /*const checkForKeyPosition = (pos, loopPos) => {
+      let keyPos = wordToPredict.indexOf(ans);
+      let newPos;
+      if(pos !== -1 && pos!== loopPos){
+        console.log('Inside');
+        newPos= wordToPredict.indexOf(answer[loopPos],loopPos);
+        if(newPos === -1) {
+          newPos= wordToPredict.indexOf(answer[loopPos],-loopPos);
+        }
+      }
+      return newPos;
+    }*/
 
   return (
     <div className='app_style'>
